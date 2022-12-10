@@ -1,0 +1,9 @@
+version: '3'
+services:
+  wpsite:
+    container_name: wpsite
+    image: wpsite
+    ports:
+      - "20080:80"
+    volumes:
+      - "./volumes/wpsite/www:/var/www/html"
