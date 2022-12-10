@@ -1,9 +1,26 @@
 version: '3'
 services:
-  wpsite:
-    container_name: wpsite
-    image: wpsite
+  site:
+    container_name: docker-wp_site
+    image: docker-wp/site
     ports:
       - "20080:80"
     volumes:
-      - "./volumes/wpsite/www:/var/www/html"
+      - "./data/site/www:/var/www/html"
+  mysql:
+    container_name: docker-wp_mysql
+    image: mysql:8.0
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: true
+    volumes:
+      - "./data/mysql/data:/var/lib/mysql"
+      - "./data/mysql/etc/my.cnf:/etc/mysql/my.cnf"
+  phpmyadmin:
+    container_name: docker-wp_phpmyadmin
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - "20081:80"
+    volumes:
+      - "./data/phpmyadmin/etc/apache2_auth.conf:/etc/apache2/conf-enabled/apache2_auth.conf"
+      - "./data/phpmyadmin/etc/apache2_auth.htpasswd:/etc/apache2/apache2_auth.htpasswd"
+      - "./data/phpmyadmin/etc/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php"

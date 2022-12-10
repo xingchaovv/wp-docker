@@ -21,22 +21,22 @@ RUN docker-php-ext-install zip
 RUN docker-php-ext-install mysqli
 
 # PHP
-COPY copy-files/php.ini /usr/local/etc/php/php.ini
-COPY copy-files/php-fpm.conf /usr/local/etc/php-fpm.conf
+COPY image-files/php.ini /usr/local/etc/php/php.ini
+COPY image-files/php-fpm.conf /usr/local/etc/php-fpm.conf
 RUN mv /usr/local/etc/php-fpm.d/docker.conf /usr/local/etc/php-fpm.d/docker.conf.default
 RUN mv /usr/local/etc/php-fpm.d/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf.default
-COPY copy-files/www.conf /usr/local/etc/php-fpm.d/www.conf
+COPY image-files/www.conf /usr/local/etc/php-fpm.d/www.conf
 
 # Install Nginx
 RUN apt-get install -y nginx-core=1.18.0-6.1+deb11u3
 RUN mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.default
-COPY copy-files/nginx.conf /etc/nginx/nginx.conf
+COPY image-files/nginx.conf /etc/nginx/nginx.conf
 RUN rm /etc/nginx/sites-enabled/default
-COPY copy-files/wpsite.conf /etc/nginx/sites-available/wpsite.conf
-RUN ln -s /etc/nginx/sites-available/wpsite.conf /etc/nginx/sites-enabled/wpsite.conf
+COPY image-files/site.conf /etc/nginx/sites-available/site.conf
+RUN ln -s /etc/nginx/sites-available/site.conf /etc/nginx/sites-enabled/site.conf
 
 # Entrypoint
-COPY copy-files/entrypoint.sh /entrypoint.sh
+COPY image-files/entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
 EXPOSE 80

@@ -1,2 +1,3 @@
-# wordpress-site-docker
-A Docker Compose for WordPress Site.
+# docker-wp
+
+Running WordPress Environment using Docker Compose.

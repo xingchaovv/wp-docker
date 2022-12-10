@@ -1,0 +1,14 @@
+[Unit]
+Description=docker-wp Service
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=REPLACE_FOR_DOCKER_WP
+ExecStart=docker compose up -d
+ExecStop=docker compose stop
+
+[Install]
+WantedBy=multi-user.target
