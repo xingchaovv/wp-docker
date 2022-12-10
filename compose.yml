@@ -5,12 +5,15 @@ services:
     image: docker-wp/site
     ports:
       - "20080:80"
+    environment:
+      TZ:
     volumes:
       - "./data/site/www:/var/www/html"
   mysql:
     container_name: docker-wp_mysql
     image: mysql:8.0
     environment:
+      TZ:
       MYSQL_RANDOM_ROOT_PASSWORD: true
     volumes:
       - "./data/mysql/data:/var/lib/mysql"
@@ -18,6 +21,8 @@ services:
   phpmyadmin:
     container_name: docker-wp_phpmyadmin
     image: phpmyadmin/phpmyadmin:latest
+    environment:
+      TZ:
     ports:
       - "20081:80"
     volumes:
