@@ -9,6 +9,7 @@ services:
       TZ:
     volumes:
       - "./data/site/www:/var/www/html"
+      - "./data/site/etc/php.ini:/usr/local/etc/php/php.ini"
   mysql:
     container_name: docker-wp_mysql
     image: mysql:8.0

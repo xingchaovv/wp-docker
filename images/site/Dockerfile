@@ -7,18 +7,22 @@ RUN apt-get install -y vim vim-doc
 RUN apt-get install -y iputils-ping
 RUN apt-get install -y procps
 RUN apt-get install -y git
-RUN apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev libwebp-dev libzip-dev
+RUN apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev libwebp-dev libzip-dev libmagickwand-dev
+RUN apt-get install -y dumb-init
 
 # Install PHP extensions
 RUN docker-php-ext-install bcmath
 RUN docker-php-ext-install calendar
 RUN docker-php-ext-install exif
 RUN docker-php-ext-enable opcache
-RUN docker-php-ext-install pcntl; docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install pcntl
+RUN docker-php-ext-install pdo_mysql
 RUN docker-php-ext-install sockets
-RUN docker-php-ext-install gd
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp; docker-php-ext-install gd
+RUN cd /usr/src; curl -OL https://pecl.php.net/get/imagick-3.7.0.tgz; tar xvf imagick-3.7.0.tgz; cd imagick-3.7.0; phpize; ./configure; make; make install; docker-php-ext-enable imagick
 RUN docker-php-ext-install zip
 RUN docker-php-ext-install mysqli
+RUN docker-php-ext-install intl
 
 # PHP
 COPY image-files/php.ini /usr/local/etc/php/php.ini

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/dumb-init /bin/bash
 
 workDir=$(cd "$(dirname "$0")" && pwd); cd "${workDir}" || exit 1
 
