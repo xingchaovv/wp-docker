@@ -1,12 +1,12 @@
 [Unit]
-Description=docker-wp Service
+Description=WordPress Docker Service
 Requires=docker.service
 After=docker.service
 
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-WorkingDirectory=REPLACE_FOR_DOCKER_WP
+WorkingDirectory=REPLACE_FOR_WORDPRESS_DOCKER
 ExecStart=docker compose up -d
 ExecStop=docker compose stop
 
